@@ -1,10 +1,12 @@
- module alutb;
-          reg[31:0] A,B;
-		  reg Cin;
-		  reg [2:0] sel;
-          wire Cout;
-		  wire [31:0] S;
-			 reg clock;
+`timescale 1 ns / 1 ps
+
+  module alutb;
+        reg[31:0] A,B;
+		reg Cin;
+		reg [2:0] Sel;
+        wire[31:0] S;
+		wire Cout;
+		reg clock;
 
  
 
@@ -12,8 +14,9 @@
 	
 	alu uut(.A(A),
 	.B(B),
-	.cin(Cin),
-	.sel(sel),
+	.Cin(Cin),
+	.Sel(Sel),
+	.S(S),
 	.Cout(Cout)
 	);
 	
@@ -29,37 +32,35 @@
 	initial begin
 
 	
-	A = 32'd290;
-	B = 32'd101;
+	A = 32'hAAAABBBB;
+	B = 32'h55554444;
 	Cin = 1'b1;
-	Sel = 3'd0;
-	#100;
+	Sel = 3'b000;
+	#100
 	
-	A = 32'd101;
-	B = 32'd101;
+	A = 32'hAAAABBBB;
+	B = 32'h5555CCCC;
 	Cin = 1'b1;
-	Sel = 3'd1;
-	#100;
+	Sel = 3'b001;
+	#100
 	
-	A = 32'd99;
-	B = 32'd8039;
+	A = 32'hFFFFBBBB;
+	B = 32'h55554444;
 	Cin = 1'b1;
-	Sel = 3'd2;
-	#100;
-
-	A = 32'd1024;
-	B = 32'd7;
+	Sel = 3'b010;
+	#100
+	
+	A = 32'hFFFFBBBB;
+	B = 32'h55554444;
 	Cin = 1'b1;
-	Sel = 3'd3;
-	#100;
+	Sel = 3'b011;
+	#100
 	
-	
-	A = 32'd255;
-	B = 32'd73;
+	A = 32'hAAAABBBB;
+	B = 32'hEEEE4444;
 	Cin = 1'b1;
-	Sel = 3'd4;
-	#100;
-	
+	Sel = 3'b100;
+	#100
 	
 	#112000 $stop;
 	end;
