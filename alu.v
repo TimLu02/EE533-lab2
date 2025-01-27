@@ -2,32 +2,35 @@
 
 
 
-module alu_32_bit(A,B,Cin,sel,S,Cout);
+module alu(A,B,Cin,Sel,S,Cout);
 input [31:0] A, B;
-input [2:0] sel;
+input [2:0] Sel;
 input Cin;
 output [31:0] S;
 output Cout;
 
-reg [32:0] carry;
+wire [32:0] carry;
+reg [31:0] s;
+reg cout;
 assign carry = A + B + Cin;
-
+assign Cout = cout;
+assign S = s;
 always@(*) begin
-case (sel)
+case (Sel)
 3'd0: begin
-S = carry[31:0];
-Cout = carry[32];
+s = carry[31:0];
+cout = carry[32];
 end
 3'd1: begin
-S = A-B+Cin;
+s = A-B+Cin;
 end
 3'd2:
-S= {1'b0,A[31:1]};
+s= {1'b0,A[31:1]};
 3'd3:
-S = A && B;
+s = A && B;
 default: begin
-S = A||B;
-Cout = 0;
+s = A||B;
+cout = 0;
 end
 endcase
 end
